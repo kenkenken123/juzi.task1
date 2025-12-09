@@ -9,6 +9,10 @@ public class DocumentGenerationFeature
         Console.WriteLine("\n=== 日常费用预算财务文档生成 ===");
         Console.WriteLine();
         
+        // 获取月份输入
+        int month = GetMonthInput();
+        int year = DateTime.Now.Year;
+        
         try
         {
             string excelPath = Path.Combine("data", "办事处日常费用预算财务.xlsx");
@@ -67,8 +71,9 @@ public class DocumentGenerationFeature
                     Console.WriteLine($"📝 正在处理工作表: {sheetData.SheetName}");
                     Console.WriteLine($"   标题: {sheetData.Title}");
                     Console.WriteLine($"   数据行数: {sheetData.Data.Count}");
+                    Console.WriteLine($"   月份: {year}年{month}月");
                     
-                    WordTemplateProcessor.GenerateFromTemplate(templatePath, outputPath, sheetData);
+                    WordTemplateProcessor.GenerateFromTemplate(templatePath, outputPath, sheetData, year, month);
                     Console.WriteLine($"   ✅ 已生成: {outputPath}");
                     Console.WriteLine();
                     
@@ -94,6 +99,39 @@ public class DocumentGenerationFeature
         {
             Console.WriteLine($"❌ 错误: {ex.Message}");
             Console.WriteLine($"   堆栈跟踪: {ex.StackTrace}");
+        }
+    }
+    
+    private static int GetMonthInput()
+    {
+        int currentMonth = DateTime.Now.Month;
+        
+        Console.Write($"请输入月份 (1-12，直接回车使用当前月份 {currentMonth}): ");
+        string? input = Console.ReadLine();
+        
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            Console.WriteLine($"✓ 使用当前月份: {currentMonth}");
+            return currentMonth;
+        }
+        
+        if (int.TryParse(input.Trim(), out int month))
+        {
+            if (month >= 1 && month <= 12)
+            {
+                Console.WriteLine($"✓ 使用月份: {month}");
+                return month;
+            }
+            else
+            {
+                Console.WriteLine($"⚠️  月份无效，使用当前月份: {currentMonth}");
+                return currentMonth;
+            }
+        }
+        else
+        {
+            Console.WriteLine($"⚠️  输入格式错误，使用当前月份: {currentMonth}");
+            return currentMonth;
         }
     }
 }
