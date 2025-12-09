@@ -55,3 +55,4 @@ artifacts/
 # macOS
 .DS_Store
 
+output/*.docx

@@ -283,8 +283,14 @@ public class WordTemplateProcessor
         totalAmountRun.Append(totalAmountText);
         totalPara.Append(totalAmountRun);
         
-        // 后续说明文字（正常格式）
+        // 后续说明文字（楷体GB2312、4号字）
         Run totalContentRun = new Run();
+        RunProperties totalContentRunProps = new RunProperties();
+        // 设置字体为楷体GB2312
+        totalContentRunProps.RunFonts = new RunFonts() { EastAsia = "楷体_GB2312", Ascii = "KaiTi_GB2312", HighAnsi = "KaiTi_GB2312" };
+        // 设置字号为4号（14磅 = 28 half-points）
+        totalContentRunProps.FontSize = new FontSize() { Val = "28" };
+        totalContentRun.Append(totalContentRunProps);
         Text totalContentText = new Text("，请你处严格按费用明细开支，并按财务制度规定，务必于12月15日前将本月相关合法单据寄到财务部核销，逾期不予报销。");
         totalContentRun.Append(totalContentText);
         totalPara.Append(totalContentRun);
