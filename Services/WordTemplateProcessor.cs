@@ -291,7 +291,7 @@ public class WordTemplateProcessor
         // 设置字号为4号（14磅 = 28 half-points）
         totalContentRunProps.FontSize = new FontSize() { Val = "28" };
         totalContentRun.Append(totalContentRunProps);
-        Text totalContentText = new Text("，请你处严格按费用明细开支，并按财务制度规定，务必于12月15日前将本月相关合法单据寄到财务部核销，逾期不予报销。");
+        Text totalContentText = new Text("，请你处严格按费用明细开支，并按财务制度规定，务必于每月15日前将本月相关合法单据寄到财务部核销，逾期不予报销。");
         totalContentRun.Append(totalContentText);
         totalPara.Append(totalContentRun);
         
